@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hp.movies.R;
+import com.example.hp.movies.activity.MainActivity;
 import com.example.hp.movies.adapter.MovieGridAdapter;
 import com.example.hp.movies.apimodel.MovieDb;
 import com.example.hp.movies.apimodel.Results;
@@ -60,6 +61,8 @@ public class MovieGridFragment extends Fragment {
         View root = inflater.inflate(R.layout.movie_grid_fragment, container, false);
         ButterKnife.bind(this, root);
         setHasOptionsMenu(true);
+        (( MainActivity)getActivity()).getSupportActionBar().setTitle("Movies");
+        (( MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 
         mGridLayoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.gridcolumn));
