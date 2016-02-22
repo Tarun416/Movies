@@ -7,10 +7,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.hp.movies.R;
 import com.example.hp.movies.adapter.MovieGridAdapter;
@@ -36,50 +40,100 @@ public class MovieGridFragment extends Fragment {
     RecyclerView mRecyclerView;
     @Bind(R.id.progressLayout)
     RelativeLayout mProgressLayout;
+    @Bind(R.id.txtLayout)
+    RelativeLayout mtext;
 
     private GridLayoutManager mGridLayoutManager;
     private MovieServiceInterface mMovieServiceInterface;
     private MovieGridAdapter mMovieGridAdapter;
     private Results[] results;
+    private String pfilteredString="popular.desc";
+    private String hfilteredString="vote_average.desc";
 
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-      //  return super.onCreateView(inflater, container, savedInstanceState);
+        //  return super.onCreateView(inflater, container, savedInstanceState);
 
-      View root=  inflater.inflate(R.layout.movie_grid_fragment,container,false);
-        ButterKnife.bind(this,root);
+        View root = inflater.inflate(R.layout.movie_grid_fragment, container, false);
+        ButterKnife.bind(this, root);
         setHasOptionsMenu(true);
 
-        mGridLayoutManager=new GridLayoutManager(getActivity(),getResources().getInteger(R.integer.gridcolumn));
+
+        mGridLayoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.gridcolumn));
         mRecyclerView.setLayoutManager(mGridLayoutManager);
-      //  mRecyclerView.setAdapter(mMovieGridAdapter);
+        getData(pfilteredString);
+        return root;
+    }
+        //  mRecyclerView.setAdapter(mMovieGridAdapter);
 
-     mMovieServiceInterface  = NetworkApiGenerator.createService(MovieServiceInterface.class);
+    public void getData(String filteredString) {
+        //results=null;
 
-        mMovieServiceInterface.getMovieList("popularity.desc", new retrofit.Callback<MovieDb>() {
+        mMovieServiceInterface = NetworkApiGenerator.createService(MovieServiceInterface.class);
+
+        mMovieServiceInterface.getMovieList(filteredString, new retrofit.Callback<MovieDb>() {
             @Override
             public void success(MovieDb movieDb, Response response) {
+                mtext.setVisibility(View.GONE);
                 mProgressLayout.setVisibility(View.GONE);
-                Log.d("aaa",movieDb.toString());
-               results= movieDb.getResults();
-                mMovieGridAdapter=new MovieGridAdapter(results);
+                Log.d("aaa", movieDb.toString());
+                results = movieDb.getResults();
+
+                mMovieGridAdapter = new MovieGridAdapter(results);
                 mRecyclerView.setAdapter(mMovieGridAdapter);
             }
 
             @Override
             public void failure(RetrofitError error) {
 
-                Log.d("lll",error.toString());
+                Log.d("lll", error.toString());
+
                 mProgressLayout.setVisibility(View.GONE);
+                mtext.setVisibility(View.VISIBLE);
 
             }
         });
 
 
-        return root;
+        // return root;
+    }
+
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu_main,menu);
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id=item.getItemId();
+
+        if(id==R.id.most_popular)
+        {
+            results=null;
+            mMovieGridAdapter.notifyDataSetChanged();
+            mProgressLayout.setVisibility(View.VISIBLE);
+
+            getData(pfilteredString);
+        }
+        if(id==R.id.highest_rated)
+        {
+            results=null;
+            mMovieGridAdapter.notifyDataSetChanged();
+            mProgressLayout.setVisibility(View.VISIBLE);
+            getData(hfilteredString);
+        }
+
+        return true;
+       // return super.onOptionsItemSelected(item);
     }
 }
 

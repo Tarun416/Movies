@@ -5,10 +5,10 @@
     <item android:orderInCategory="100" android:id="@+id/more" android:title="more" android:icon="@drawable/ic_action_overflow" app:showAsAction="always">
 
    <menu>
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/most_popular" android:title="@string/most_popular"
         android:orderInCategory="100" app:showAsAction="never" />
 
-    <item android:id="@+id/Refresh" android:title="Refresh" android:orderInCategory="100" app:showAsAction="never"/>
+    <item android:id="@+id/highest_rated" android:title="@string/highest_rated" android:orderInCategory="100" app:showAsAction="never"/>
    </menu>
     </item>
 </menu>
