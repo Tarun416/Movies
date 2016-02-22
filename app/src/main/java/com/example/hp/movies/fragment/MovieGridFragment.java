@@ -83,7 +83,7 @@ public class MovieGridFragment extends Fragment {
                 Log.d("aaa", movieDb.toString());
                 results = movieDb.getResults();
 
-                mMovieGridAdapter = new MovieGridAdapter(results);
+                mMovieGridAdapter = new MovieGridAdapter(getActivity(),results);
                 mRecyclerView.setAdapter(mMovieGridAdapter);
             }
 

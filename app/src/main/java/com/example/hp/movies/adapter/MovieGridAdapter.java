@@ -1,6 +1,8 @@
 package com.example.hp.movies.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.hp.movies.R;
+import com.example.hp.movies.activity.MainActivity;
 import com.example.hp.movies.apimodel.Results;
+import com.example.hp.movies.fragment.MovieDetailsFragment;
 import com.example.hp.movies.generator.NetworkApiGenerator;
 import com.squareup.picasso.Picasso;
 
@@ -20,10 +24,13 @@ import java.util.List;
 public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.ViewHolder> {
 
     private Results[] results;
+    private MovieDetailsFragment movieDetailsFragment;
+    private Bundle mBundle;
+    private Context mContext;
 
 
-    public MovieGridAdapter(Results [] results) {
-
+    public MovieGridAdapter(Context mContext,Results [] results) {
+      this.mContext=mContext;
         this.results=results;
 
     }
@@ -45,13 +52,46 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        final Results item=results[position];
         String url= NetworkApiGenerator.IMAGE_BASE_URL+results[position].getPoster_path();
 
         Picasso.with(holder.context).load(url).into(holder.poster);
 
+        holder.poster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentJump(item);
+            }
+        });
+
 
 
     }
+
+    private void fragmentJump(Results itemSelected)
+    {
+        movieDetailsFragment=new MovieDetailsFragment();
+        mBundle=new Bundle();
+        mBundle.putParcelable("key",itemSelected);
+        movieDetailsFragment.setArguments(mBundle);
+        switchContent(R.id.fragment, movieDetailsFragment);
+
+
+    }
+
+
+ public void switchContent(int id,Fragment fragment) {
+     if (mContext == null) {
+         return;
+     }
+     if(mContext instanceof MainActivity)
+     {
+        MainActivity mainActivity=(MainActivity)mContext;
+         Fragment frag=fragment;
+         mainActivity.switchContent(id,frag);
+     }
+ }
+    
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {

@@ -10,12 +10,16 @@
     tools:context=".MainActivity">
 
 
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment">
+</FrameLayout>
 
-
-   <fragment
+  <!-- <fragment
        android:id="@+id/fragment"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        tools:layout="@layout/movie_grid_fragment"
-       android:name="com.example.hp.movies.fragment.MovieGridFragment"/>
+       android:name="com.example.hp.movies.fragment.MovieGridFragment"/>-->
 </RelativeLayout>

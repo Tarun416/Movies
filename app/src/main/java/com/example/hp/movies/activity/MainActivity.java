@@ -1,6 +1,9 @@
 package com.example.hp.movies.activity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.hp.movies.R;
+import com.example.hp.movies.fragment.MovieGridFragment;
 
 /**
  * Created by hp on 20-02-2016.
@@ -22,10 +26,16 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-  //     Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
-     // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MovieGridFragment movieGridFragment=new MovieGridFragment();
+       android.support.v4.app. FragmentManager fm=getSupportFragmentManager();
+      android.support.v4.app . FragmentTransaction ft=fm.beginTransaction();
+        ft.add(R.id.fragment,movieGridFragment);
+        ft.addToBackStack(null);
+        ft.commit();
+
+
+
 
 
     }
@@ -45,5 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void switchContent(int id,Fragment fragment) {
+       android.support.v4.app. FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(id, fragment, fragment.toString());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 }
