@@ -47,7 +47,7 @@ public class MovieGridFragment extends Fragment {
     private MovieServiceInterface mMovieServiceInterface;
     private MovieGridAdapter mMovieGridAdapter;
     private Results[] results;
-    private String pfilteredString="popular.desc";
+    private String pfilteredString="popularity.desc";
     private String hfilteredString="vote_average.desc";
 
 
@@ -77,6 +77,7 @@ public class MovieGridFragment extends Fragment {
         mMovieServiceInterface.getMovieList(filteredString, new retrofit.Callback<MovieDb>() {
             @Override
             public void success(MovieDb movieDb, Response response) {
+                mRecyclerView.setVisibility(View.VISIBLE);
                 mtext.setVisibility(View.GONE);
                 mProgressLayout.setVisibility(View.GONE);
                 Log.d("aaa", movieDb.toString());
@@ -91,7 +92,9 @@ public class MovieGridFragment extends Fragment {
 
                 Log.d("lll", error.toString());
 
+
                 mProgressLayout.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.GONE);
                 mtext.setVisibility(View.VISIBLE);
 
             }
@@ -119,7 +122,9 @@ public class MovieGridFragment extends Fragment {
         if(id==R.id.most_popular)
         {
             results=null;
-            mMovieGridAdapter.notifyDataSetChanged();
+            if(mMovieGridAdapter!=null) {
+                mMovieGridAdapter.notifyDataSetChanged();
+            }
             mProgressLayout.setVisibility(View.VISIBLE);
 
             getData(pfilteredString);
@@ -127,7 +132,9 @@ public class MovieGridFragment extends Fragment {
         if(id==R.id.highest_rated)
         {
             results=null;
-            mMovieGridAdapter.notifyDataSetChanged();
+            if(mMovieGridAdapter!=null) {
+                mMovieGridAdapter.notifyDataSetChanged();
+            }
             mProgressLayout.setVisibility(View.VISIBLE);
             getData(hfilteredString);
         }
