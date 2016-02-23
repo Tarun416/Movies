@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.hp.movies.R;
@@ -30,6 +31,12 @@ public class MovieDetailsFragment extends Fragment {
     TextView tv;
     @Bind(R.id.rating)
     TextView rating;
+    @Bind(R.id.ratingbar)
+    RatingBar ratingBar;
+    @Bind(R.id.releasedate)
+    TextView releasedate;
+    @Bind(R.id.over)
+    TextView overview;
 
 
 
@@ -57,6 +64,12 @@ public class MovieDetailsFragment extends Fragment {
         Picasso.with(getContext()).load(url).into(iamge);
         tv.setText(results.getOriginal_title());
         rating.setText(results.getVote_average() + "/" + "10");
+
+        float d=Float.parseFloat(results.getVote_average());
+//        ratingBar.setNumStars(Integer.parseInt(results.getVote_average()));
+        ratingBar.setRating(d);
+        releasedate.setText(results.getRelease_date());
+        overview.setText(results.getOverview());
 
 
 
