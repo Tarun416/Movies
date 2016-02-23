@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.hp.movies.R;
 import com.example.hp.movies.activity.MainActivity;
@@ -25,6 +26,11 @@ public class MovieDetailsFragment extends Fragment {
 
     @Bind(R.id.image)
     ImageView iamge;
+    @Bind(R.id.movietitle)
+    TextView tv;
+    @Bind(R.id.rating)
+    TextView rating;
+
 
 
 
@@ -49,6 +55,8 @@ public class MovieDetailsFragment extends Fragment {
        Results results=args.getParcelable("key");
         String url=NetworkApiGenerator.IMAGE_BASE_URL+results.getPoster_path();
         Picasso.with(getContext()).load(url).into(iamge);
+        tv.setText(results.getOriginal_title());
+        rating.setText(results.getVote_average() + "/" + "10");
 
 
 

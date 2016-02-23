@@ -1,12 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
+
+
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_height="match_parent"
+android:layout_width="match_parent"
+    android:fillViewport="true"
+android:scrollbars="none"
+tools:context="com.example.hp.movies.fragment.MovieDetailsFragment">
+
+    <RelativeLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/s">
+
+
+
+
+<FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/poster_height"
+    android:id="@+id/flayout"
+    android:layout_gravity="center_vertical">
+
+
 
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/image"/>
+        android:id="@+id/movieImageView"
+        android:background="@android:color/holo_green_dark"/>
 
-</LinearLayout>
+
+
+    <TextView
+        android:id="@+id/movietitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_gravity="left|center_vertical"
+        android:maxLines="2"
+        android:textSize="@dimen/title_font_size"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:text="My Movie"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</FrameLayout>
+
+
+
+        <ImageView
+            android:layout_below="@+id/flayout"
+            android:layout_width="150dp"
+            android:layout_height="220dp"
+            android:id="@+id/image"
+            android:layout_marginRight="@dimen/margin16"
+            android:layout_marginTop="@dimen/marginTop"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015"
+            android:layout_toRightOf="@+id/flayout"/>
+
+
+
+
+
+        <TextView
+            android:id="@+id/ratingtext"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_marginTop="@dimen/marginTop"
+            android:text="Rating"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="06/10"
+            android:layout_below="@+id/image"
+            android:layout_marginTop="@dimen/marginTop"
+            android:textStyle="bold"
+
+
+            android:layout_toRightOf="@+id/ratingtext"
+            />
+
+
+        <RatingBar
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:id="@+id/ratingbar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rating"
+            android:numStars="10"
+            android:stepSize="1"
+            android:rating="6"
+            android:isIndicator="true"/>
+
+
+
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+</ScrollView>
