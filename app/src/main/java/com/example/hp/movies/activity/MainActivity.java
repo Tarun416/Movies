@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState==null) {
 
 
-            MovieGridFragment movieGridFragment = new MovieGridFragment();
+            MovieGridFragment movieGridFragment =  new MovieGridFragment();
             android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
             ft.add(R.id.fragment, movieGridFragment);
@@ -55,12 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            super.onBackPressed();
-        }
-        else {
-            getSupportFragmentManager().popBackStack();
-        }
+        super.onBackPressed();
     }
 
     @Override
