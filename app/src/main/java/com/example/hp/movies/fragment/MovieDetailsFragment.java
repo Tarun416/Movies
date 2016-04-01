@@ -3,6 +3,7 @@ package com.example.hp.movies.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class MovieDetailsFragment extends Fragment {
     TextView releasedate;
     @Bind(R.id.over)
     TextView overview;
+    @Bind(R.id.movieImageView)
+    ImageView mMovieImageView;
 
 
 
@@ -53,7 +56,7 @@ public class MovieDetailsFragment extends Fragment {
                 ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-                ((MainActivity) getActivity()).getSupportActionBar().setTitle("MovieDetails");
+                ((MainActivity) getActivity()).getSupportActionBar().setTitle("Movie Details");
 
         Bundle args=getArguments();
 
@@ -62,6 +65,14 @@ public class MovieDetailsFragment extends Fragment {
        Results results=args.getParcelable("key");
         String url=NetworkApiGenerator.IMAGE_BASE_URL+results.getPoster_path();
         Picasso.with(getContext()).load(url).into(iamge);
+        Picasso.with(getActivity()).load(NetworkApiGenerator.IMAGE_BASE_URL + results.getBackdrop_path())
+                .fit()
+                .centerCrop()
+                .placeholder(ContextCompat.getDrawable(getActivity(), android.R.color.holo_blue_dark))
+                .error(ContextCompat.getDrawable(getActivity(), android.R.color.holo_red_dark))
+                .into(mMovieImageView);
+
+
         tv.setText(results.getOriginal_title());
         rating.setText(results.getVote_average() + "/" + "10");
 

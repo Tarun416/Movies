@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.hp.movies.R;
 import com.example.hp.movies.activity.MainActivity;
@@ -64,6 +65,8 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.View
             }
         });
 
+        holder.movieTitle.setText(item.getTitle());
+
 
 
     }
@@ -98,10 +101,12 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.View
 
         public ImageView poster;
         public Context context;
+        public TextView movieTitle;
         public ViewHolder(View itemView, Context context) {
             super(itemView);
             this.context=context;
-            poster=(ImageView)itemView.findViewById(R.id.poster);
+            poster=(ImageView)itemView.findViewById(R.id.movieGridItemImageView);
+            movieTitle=(TextView)itemView.findViewById(R.id.titleTextView);
         }
     }
 

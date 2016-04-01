@@ -62,7 +62,7 @@ public class MovieGridFragment extends Fragment {
         ButterKnife.bind(this, root);
         setHasOptionsMenu(true);
         (( MainActivity)getActivity()).getSupportActionBar().setTitle("Movies");
-        (( MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+     //   (( MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 
         mGridLayoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.gridcolumn));

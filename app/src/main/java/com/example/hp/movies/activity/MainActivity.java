@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Movies");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        if(savedInstanceState==null) {
+
 
 
             MovieGridFragment movieGridFragment =  new MovieGridFragment();
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
             ft.add(R.id.fragment, movieGridFragment);
             ft.addToBackStack(null);
             ft.commit();
-        }
 
 
 
