@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,15 @@ import android.widget.TextView;
 import com.example.hp.movies.R;
 import com.example.hp.movies.activity.MainActivity;
 import com.example.hp.movies.apimodel.Results;
+import com.example.hp.movies.apimodel.TrailerModel;
 import com.example.hp.movies.generator.NetworkApiGenerator;
+import com.example.hp.movies.interfaces.MovieServiceInterface;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -40,6 +45,11 @@ public class MovieDetailsFragment extends Fragment {
     TextView overview;
     @Bind(R.id.movieImageView)
     ImageView mMovieImageView;
+    @Bind(R.id.trailerslist)
+    RecyclerView trailerslist;
+
+
+    private MovieServiceInterface movieServiceInterface;
 
 
 
@@ -81,6 +91,25 @@ public class MovieDetailsFragment extends Fragment {
         ratingBar.setRating(d);
         releasedate.setText(results.getRelease_date());
         overview.setText(results.getOverview());
+
+
+        movieServiceInterface=NetworkApiGenerator.createService(MovieServiceInterface.class);
+        movieServiceInterface.getTrailers(results.getId(), new retrofit.Callback<TrailerModel>() {
+            @Override
+            public void success(TrailerModel trailerModel,Response response) {
+
+
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+
+
 
 
 
