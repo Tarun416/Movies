@@ -198,6 +198,37 @@ tools:context="com.example.hp.movies.fragment.MovieDetailsFragment">
         </android.support.v7.widget.RecyclerView>
 
 
+        <View
+            android:id="@+id/trailerview"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:background="@android:color/darker_gray"
+            android:layout_below="@+id/trailerslist"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"/>
+
+
+        <TextView
+            android:id="@+id/reviewtextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reviews:"
+            android:layout_below="@+id/trailerview"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="16dp"/>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

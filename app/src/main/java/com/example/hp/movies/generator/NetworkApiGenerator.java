@@ -19,6 +19,7 @@ public class NetworkApiGenerator {
     public static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w342/";
     public static final String BASE_URL = "http://api.themoviedb.org/3";
     public static final String apikey = "3b0f2adc01e2e325c60ec5faccb91cfe";
+    public static final String YOU_TUBE_TRAILER_BASE_URL = "http://img.youtube.com/vi/";
 
 
 
