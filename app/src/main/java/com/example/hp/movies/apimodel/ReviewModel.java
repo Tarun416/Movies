@@ -1,5 +1,7 @@
 package com.example.hp.movies.apimodel;
 
+import java.util.List;
+
 /**
  * Created by rahul on 07/04/16.
  */
@@ -7,7 +9,7 @@ public class ReviewModel
 {
     private String id;
 
-    private Results[] results;
+    private List<ReviewResults> results;
 
     private String page;
 
@@ -25,12 +27,12 @@ public class ReviewModel
         this.id = id;
     }
 
-    public Results[] getResults ()
+    public List<ReviewResults> getResults ()
     {
         return results;
     }
 
-    public void setResults (Results[] results)
+    public void setResults (List<ReviewResults> results)
     {
         this.results = results;
     }

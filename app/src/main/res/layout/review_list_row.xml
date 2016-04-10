@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Author : "/>
+
+    <TextView
+        android:layout_toRightOf="@+id/author"
+        android:id="@+id/authorname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Roy Lee"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/authorname"
+        android:layout_marginTop="16dp"
+        android:text="Wonderful Movie"/>
+
+    <TextView
+        android:id="@+id/reviewurl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REVIEW URL: "
+        android:layout_below="@+id/content"
+        android:layout_marginTop="16dp"/>
+    
+    <TextView
+        android:id="@+id/link"
+        android:layout_toRightOf="@+id/reviewurl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="www.google.com"
+        android:layout_below="@+id/content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/transparent_black"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/link"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+
+
+
+
+</RelativeLayout>

@@ -1,5 +1,8 @@
 package com.example.hp.movies.fragment;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,9 +20,11 @@ import android.widget.TextView;
 
 import com.example.hp.movies.R;
 import com.example.hp.movies.activity.MainActivity;
+import com.example.hp.movies.adapter.ReviewAdapter;
 import com.example.hp.movies.adapter.TrailerAdapter;
 import com.example.hp.movies.apimodel.Results;
 import com.example.hp.movies.apimodel.ReviewModel;
+import com.example.hp.movies.apimodel.ReviewResults;
 import com.example.hp.movies.apimodel.TrailerModel;
 import com.example.hp.movies.apimodel.TrailerResults;
 import com.example.hp.movies.generator.NetworkApiGenerator;
@@ -56,6 +61,8 @@ public class MovieDetailsFragment extends Fragment {
     ImageView mMovieImageView;
     @Bind(R.id.trailerslist)
     RecyclerView trailerslist;
+    @Bind(R.id.reviewslist)
+    RecyclerView reviewList;
 
 
     private MovieServiceInterface movieServiceInterface;
@@ -64,6 +71,11 @@ public class MovieDetailsFragment extends Fragment {
     private List<TrailerResults> mTrailerResults;
     private Results results;
     private ReviewModel mReviewModel;
+    private List<ReviewResults> mReviewResults;
+    private ReviewAdapter reviewAdapter;
+    private LinearLayoutManager linearLayoutManager;
+
+
 
 
 
@@ -116,7 +128,15 @@ public class MovieDetailsFragment extends Fragment {
                 mTrailerResults = trailerModel.getResults();
                 Log.d("trailerimages", mtrailermodel.toString());
                 Log.d("ff", mtrailermodel.getId().toString());
-                trailerAdapter = new TrailerAdapter(getActivity(), mTrailerResults);
+                trailerAdapter = new TrailerAdapter(getActivity(), mTrailerResults, new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                        watchYoutubeVideo(mTrailerResults.get(position).getKey());
+
+
+                    }
+                });
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 trailerslist.setLayoutManager(linearLayoutManager);
                 trailerslist.setAdapter(trailerAdapter);
@@ -144,6 +164,16 @@ public class MovieDetailsFragment extends Fragment {
         return  view;
     }
 
+    private void watchYoutubeVideo(String key) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + key));
+            startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + key));
+            startActivity(intent);
+        }
+    }
+
 
     public void getReviews()
     {
@@ -151,6 +181,28 @@ public class MovieDetailsFragment extends Fragment {
         movieServiceInterface.getReviews(results.getId(), new Callback<ReviewModel>() {
             @Override
             public void success(ReviewModel reviewModel, Response response) {
+                mReviewModel=reviewModel;
+
+                mReviewResults= mReviewModel.getResults();
+                reviewAdapter=new ReviewAdapter(getActivity(),mReviewResults);
+
+             //   linearLayoutManager=new org.solovyev.android.views.llm.LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                linearLayoutManager=new org.solovyev.android.views.llm.LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+
+
+
+
+
+
+                reviewList.setLayoutManager(linearLayoutManager);
+                reviewList.setAdapter(reviewAdapter);
+             //   reviewList.setNestedScrollingEnabled(false);
+
+
+
+
+
+
 
 
             }

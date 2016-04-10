@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.example.hp.movies.R;
 import com.example.hp.movies.apimodel.TrailerModel;
@@ -25,14 +26,15 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
 
     private Context mContext;
     private List<TrailerResults> mTrailerResults;
-    private AdapterView.OnItemClickListener mOnItemClickListener;
+    private AdapterView.OnItemClickListener mOnItemClickListenerr;
 
 
 
-    public TrailerAdapter(Context context, List<TrailerResults> results)
+    public TrailerAdapter(Context context, List<TrailerResults> results , AdapterView.OnItemClickListener mOnItemClickListener)
     {
         this.mContext=context;
        this. mTrailerResults=results;
+        this.mOnItemClickListenerr=mOnItemClickListener;
      //   mOnItemClickListener=mOnItemClickListene;
 
     }
@@ -95,7 +97,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
         public void onClick(View v) {
 
 
-
+                 mOnItemClickListenerr.onItemClick(null,v,getAdapterPosition(),0);
 
           //  mOnItemClickListener.onItemClick(v,getAdapterPosition());
 
