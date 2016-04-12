@@ -184,12 +184,23 @@ tools:context="com.example.hp.movies.fragment.MovieDetailsFragment">
             android:layout_below="@+id/synopsisView"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/notrailertext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Trailers"
+            android:layout_below="@+id/trailertextview"
+            android:layout_marginLeft="16dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            />
         
         <android.support.v7.widget.RecyclerView
             android:id="@+id/trailerslist"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_below="@+id/trailertextview"
+            android:layout_below="@+id/notrailertext"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp">
@@ -218,6 +229,16 @@ tools:context="com.example.hp.movies.fragment.MovieDetailsFragment">
             android:layout_below="@+id/trailerview"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/noreview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reviewtextview"
+            android:layout_marginLeft="16dp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:text="No Reviews"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/reviewslist"
@@ -255,22 +276,6 @@ tools:context="com.example.hp.movies.fragment.MovieDetailsFragment">
 
         
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

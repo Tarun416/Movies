@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="16dp">
+
+
+
 
     <ImageView
         android:id="@+id/trailerimageview"
         android:layout_width="250dp"
         android:layout_height="200dp"
        android:layout_marginRight="16dp"
+
         android:adjustViewBounds="true"/>
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/notrailertext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Trailers"
+        android:visibility="gone"
+
+
+        android:textStyle="bold"
+        android:textSize="18dp"/>
+
+</RelativeLayout>

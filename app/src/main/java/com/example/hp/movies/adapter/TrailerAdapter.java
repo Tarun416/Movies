@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.hp.movies.R;
 import com.example.hp.movies.apimodel.TrailerModel;
 import com.example.hp.movies.apimodel.TrailerResults;
 import com.example.hp.movies.generator.NetworkApiGenerator;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -48,7 +50,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     }
 
     @Override
-    public void onBindViewHolder(TrailerViewHolder holder, int position) {
+    public void onBindViewHolder(final TrailerViewHolder holder, int position) {
 
       String url=  NetworkApiGenerator.YOU_TUBE_TRAILER_BASE_URL+mTrailerResults.get(position).getKey()+"/0.jpg";
         Log.d("trailerurl",url );
@@ -56,10 +58,23 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
         Picasso.with(holder.mcontext)
                 .load(url)
                 .placeholder(ContextCompat.getDrawable(holder.mcontext, android.R.color.holo_blue_dark))
-                .error(ContextCompat.getDrawable(mContext, android.R.color.holo_red_dark))
+               .error(ContextCompat.getDrawable(mContext, android.R.color.holo_red_dark))
+
                 .fit()
                 .centerCrop()
-                .into(holder.trailerPoster);
+                .into(holder.trailerPoster/*, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                       holder.trailerPoster.setVisibility(View.GONE);
+                        holder.noTrailerText.setVisibility(View.VISIBLE);
+                        holder.noTrailerText.setText("No Trailers");
+                    }
+                }*/);
 
 
      //   Picasso.with(getA)
@@ -81,6 +96,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     {
         private ImageView trailerPoster;
         private Context mcontext;
+        private TextView noTrailerText;
 
         public  TrailerViewHolder(View itemView, Context context)
         {
@@ -88,6 +104,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
             itemView.setOnClickListener(this);
             this.mcontext=context;
             trailerPoster=(ImageView) itemView.findViewById(R.id.trailerimageview);
+            noTrailerText=(TextView) itemView.findViewById(R.id.notrailertext);
 
 
 

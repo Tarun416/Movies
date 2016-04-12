@@ -3,6 +3,7 @@ package com.example.hp.movies.fragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -45,6 +46,9 @@ import retrofit.client.Response;
  */
 public class MovieDetailsFragment extends Fragment {
 
+    @Bind(R.id.noreview)
+    TextView noreview;
+
     @Bind(R.id.image)
     ImageView iamge;
     @Bind(R.id.movietitle)
@@ -63,6 +67,8 @@ public class MovieDetailsFragment extends Fragment {
     RecyclerView trailerslist;
     @Bind(R.id.reviewslist)
     RecyclerView reviewList;
+    @Bind(R.id.notrailertext)
+    TextView notrailertext;
 
 
     private MovieServiceInterface movieServiceInterface;
@@ -86,10 +92,10 @@ public class MovieDetailsFragment extends Fragment {
        // return super.onCreateView(inflater, container, savedInstanceState);
 
       View view=inflater.inflate(R.layout.movie_details_fragment, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
 
 
-                ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //    ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
                 ((MainActivity) getActivity()).getSupportActionBar().setTitle("Movie Details");
@@ -124,6 +130,14 @@ public class MovieDetailsFragment extends Fragment {
             @Override
             public void success(TrailerModel trailerModel,Response response) {
 
+                if(trailerModel.getResults().size()==0)
+                {
+                    trailerslist.setVisibility(View.GONE);
+                    notrailertext.setVisibility(View.VISIBLE);
+
+
+                }
+
                 mtrailermodel = trailerModel;
                 mTrailerResults = trailerModel.getResults();
                 Log.d("trailerimages", mtrailermodel.toString());
@@ -137,7 +151,8 @@ public class MovieDetailsFragment extends Fragment {
 
                     }
                 });
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                linearLayoutManager=new org.solovyev.android.views.llm.LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+            //    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 trailerslist.setLayoutManager(linearLayoutManager);
                 trailerslist.setAdapter(trailerAdapter);
 
@@ -184,7 +199,15 @@ public class MovieDetailsFragment extends Fragment {
                 mReviewModel=reviewModel;
 
                 mReviewResults= mReviewModel.getResults();
-                reviewAdapter=new ReviewAdapter(getActivity(),mReviewResults);
+                if(mReviewResults.size()!=0) {
+                    noreview.setVisibility(View.GONE);
+                    reviewAdapter = new ReviewAdapter(getActivity(), mReviewResults);
+                }
+                else
+                {
+
+                    noreview.setVisibility(View.VISIBLE);
+                }
 
              //   linearLayoutManager=new org.solovyev.android.views.llm.LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 linearLayoutManager=new org.solovyev.android.views.llm.LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
@@ -205,10 +228,13 @@ public class MovieDetailsFragment extends Fragment {
 
 
 
+
+
             }
 
             @Override
             public void failure(RetrofitError error) {
+              //  noreview.setVisibility(View.VISIBLE);
 
             }
         });

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
             ft.add(R.id.fragment, movieGridFragment);
-            ft.addToBackStack(null);
+        //    ft.addToBackStack(null);
             ft.commit();
 
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     public void switchContent(int id,Fragment fragment) {
        android.support.v4.app. FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(id,fragment,fragment.toString());
-        ft.addToBackStack(null);
+      //  ft.addToBackStack(null);
         ft.commit();
     }
 }
