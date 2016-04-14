@@ -130,6 +130,9 @@ public class MovieDetailsFragment extends Fragment {
             @Override
             public void success(TrailerModel trailerModel,Response response) {
 
+                notrailertext.setVisibility(View.GONE);
+                trailerslist.setVisibility(View.VISIBLE);
+
                 if(trailerModel.getResults().size()==0)
                 {
                     trailerslist.setVisibility(View.GONE);
@@ -158,6 +161,9 @@ public class MovieDetailsFragment extends Fragment {
 
 
             }
+
+
+
 
             @Override
             public void failure(RetrofitError error) {
@@ -239,4 +245,12 @@ public class MovieDetailsFragment extends Fragment {
             }
         });
     }
+
+
+
+
+
+
+
+
 }

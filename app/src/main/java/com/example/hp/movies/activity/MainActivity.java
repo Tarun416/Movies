@@ -2,6 +2,7 @@ package com.example.hp.movies.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
        // return super.onCreateOptionsMenu(menu);
@@ -55,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent i=new Intent(this,MainActivity.class);
+        startActivity(i);
+
     }
 
     @Override

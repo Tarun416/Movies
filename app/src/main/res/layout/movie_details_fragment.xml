@@ -101,6 +101,19 @@ tools:context="com.example.hp.movies.fragment.MovieDetailsFragment">
            />
 
 
+        <ImageButton android:id="@+id/favouritebtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_favorite_normal"
+            android:background="@drawable/roundcorner"
+            android:layout_alignStart="@+id/releasedaetext"
+            android:layout_alignLeft="@+id/releasedaetext"
+            android:layout_marginTop="60dp"
+            android:onClick="onToggleStar"
+            android:layout_below="@+id/releasedate"
+            android:clickable="true"/>
+
+
 
 
 
