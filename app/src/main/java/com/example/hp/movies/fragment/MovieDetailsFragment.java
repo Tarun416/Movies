@@ -111,11 +111,12 @@ public class MovieDetailsFragment extends Fragment {
       View view=inflater.inflate(R.layout.movie_details_fragment, container, false);
         ButterKnife.bind(this, view);
 
-        //Typeface customfont=Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lohit-Kannada.ttf");
-        //kannad.setTypeface(customfont);
+        /*Typeface customfont=Typeface.createFromAsset(getActivity().getAssets(), "fonts/Kruti_Dev_080_Condensed.ttf");
+        kannad.setTypeface(customfont);*/
 
-        String text=Translate("Tarun", "kn");
-        kannad.setText(text);
+        //String text=Translate("Tarun", "kn");
+        //kannad.setText(text);
+     //   kannad.setText("ರೈಸ್");
 
 
 
@@ -162,6 +163,7 @@ public class MovieDetailsFragment extends Fragment {
                 {
                     trailerslist.setVisibility(View.GONE);
                     notrailertext.setVisibility(View.VISIBLE);
+
 
 
                 }

@@ -119,9 +119,10 @@ tools:context="com.example.hp.movies.fragment.MovieDetailsFragment">
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tarun"
+            android:text="ಚ್ದ್ಚ್ದ್ಚ್ "
             android:layout_below="@+id/favouritebtn"
-            android:layout_alignStart="@+id/favouritebtn"/>
+            android:layout_alignStart="@+id/favouritebtn"
+            android:visibility="gone"/>
 
 
 
