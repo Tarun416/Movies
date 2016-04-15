@@ -112,6 +112,16 @@ tools:context="com.example.hp.movies.fragment.MovieDetailsFragment">
             android:onClick="onToggleStar"
             android:layout_below="@+id/releasedate"
             android:clickable="true"/>
+        v
+
+        <TextView
+            android:id="@+id/kk"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tarun"
+            android:layout_below="@+id/favouritebtn"
+            android:layout_alignStart="@+id/favouritebtn"/>
 
 
 

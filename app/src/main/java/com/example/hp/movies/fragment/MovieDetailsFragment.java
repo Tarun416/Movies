@@ -1,7 +1,10 @@
 package com.example.hp.movies.fragment;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.opengl.Visibility;
 import android.os.Bundle;
@@ -15,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -32,6 +37,17 @@ import com.example.hp.movies.generator.NetworkApiGenerator;
 import com.example.hp.movies.interfaces.MovieServiceInterface;
 import com.squareup.picasso.Picasso;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import butterknife.Bind;
@@ -69,6 +85,10 @@ public class MovieDetailsFragment extends Fragment {
     RecyclerView reviewList;
     @Bind(R.id.notrailertext)
     TextView notrailertext;
+    @Bind(R.id.favouritebtn)
+    ImageButton favouritebutton;
+    @Bind(R.id.kk)
+    TextView kannad;
 
 
     private MovieServiceInterface movieServiceInterface;
@@ -80,10 +100,7 @@ public class MovieDetailsFragment extends Fragment {
     private List<ReviewResults> mReviewResults;
     private ReviewAdapter reviewAdapter;
     private LinearLayoutManager linearLayoutManager;
-
-
-
-
+    private String responseString;
 
 
     @Nullable
@@ -93,6 +110,14 @@ public class MovieDetailsFragment extends Fragment {
 
       View view=inflater.inflate(R.layout.movie_details_fragment, container, false);
         ButterKnife.bind(this, view);
+
+        //Typeface customfont=Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lohit-Kannada.ttf");
+        //kannad.setTypeface(customfont);
+
+        String text=Translate("Tarun", "kn");
+        kannad.setText(text);
+
+
 
 
             //    ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -165,6 +190,8 @@ public class MovieDetailsFragment extends Fragment {
 
 
 
+
+
             @Override
             public void failure(RetrofitError error) {
 
@@ -175,6 +202,16 @@ public class MovieDetailsFragment extends Fragment {
 
 
            getReviews();
+
+
+
+
+        favouritebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onToggleStar(v);
+            }
+        });
 
 
 
@@ -217,12 +254,6 @@ public class MovieDetailsFragment extends Fragment {
 
              //   linearLayoutManager=new org.solovyev.android.views.llm.LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 linearLayoutManager=new org.solovyev.android.views.llm.LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-
-
-
-
-
-
                 reviewList.setLayoutManager(linearLayoutManager);
                 reviewList.setAdapter(reviewAdapter);
              //   reviewList.setNestedScrollingEnabled(false);
@@ -248,7 +279,124 @@ public class MovieDetailsFragment extends Fragment {
 
 
 
+    public void onToggleStar(View v)
+    {
+        boolean isFavourite=readState();
 
+        if(isFavourite)
+        {
+            favouritebutton.setImageResource(R.drawable.ic_favorite_selected);
+            isFavourite=false;
+            saveState(isFavourite);
+
+        }
+        else
+        {
+            favouritebutton.setImageResource(R.drawable.ic_favorite_normal);
+            isFavourite=true;
+            saveState(isFavourite);
+
+        }
+
+    }
+
+    private void saveState(boolean isFavourite) {
+        SharedPreferences sp=getActivity().getSharedPreferences("Favourite", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spe= sp.edit();
+        spe.putBoolean("State", isFavourite);
+        spe.commit();
+
+
+    }
+
+    private boolean readState() {
+        SharedPreferences sp=  getActivity().getSharedPreferences("Favourite", Context.MODE_PRIVATE);
+        return sp.getBoolean("State", true);
+
+    }
+
+
+    private String Translate(String text, String l)
+    {
+
+        try {
+            URL url=new URL("http://translate.google.com/translate_s?hl=en&clss=&q=" +
+                    text.replace(" ", "+") + "&tq=&sl=en&tl=" + l);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+      //  "http://translate.google.com/translate_s?hl=en&clss=&q=" +
+              //  text.replace(" ", "+") + "&tq=&sl=en&tl=" + l
+      //  https://translate.google.com/#auto/kn/tarun
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpResponse response = null;
+        try {
+            response = httpclient.execute(new HttpGet( "https://translate.google.com/#auto/kn/tarun"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        StatusLine statusLine = response.getStatusLine();
+        if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            try {
+                response.getEntity().writeTo(out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+             responseString = out.toString();
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //..more logic
+        } else{
+            //Closes the connection.
+            try {
+                response.getEntity().getContent().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                throw new IOException(statusLine.getReasonPhrase());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String translated=null;
+        int rawlength1 = responseString.indexOf("<span id=otq><b>");
+        String rawStr1 = responseString.substring(rawlength1);
+        int rawlength2 = rawStr1.indexOf("</b>");
+        String rawstr2 = rawStr1.substring(0, rawlength2);
+        translated = rawstr2.replace("<span id=otq><b>", "");
+
+        return translated;
+
+
+
+
+
+
+
+        /*String translated = null;
+
+
+
+        HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create
+                ("http://translate.google.com/translate_s?hl=en&clss=&q=" +
+                        text.replace(" ", "+") + "&tq=&sl=en&tl=" + l);
+        HttpWebResponse res = (HttpWebResponse)hwr.GetResponse();
+        StreamReader sr = new StreamReader(res.GetResponseStream());
+        String html = sr.ReadToEnd();
+        int rawlength1 = html.IndexOf("<span id=otq><b>");
+        String rawStr1 = html.Substring(rawlength1);
+        int rawlength2 = rawStr1.IndexOf("</b>");
+        String rawstr2 = rawStr1.substring(0, rawlength2);
+        translated = rawstr2.replace("<span id=otq><b>", "");
+        tbStringToTranslate.Text = text;
+        return translated;*/
+    }
 
 
 
